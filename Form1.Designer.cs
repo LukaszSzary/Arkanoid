@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             Score = new Label();
             Paddle = new PictureBox();
             Ball = new PictureBox();
@@ -41,6 +42,7 @@
             RedBox3 = new PictureBox();
             RedBox5 = new PictureBox();
             RedBox1 = new PictureBox();
+            timer = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)Paddle).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Ball).BeginInit();
             ((System.ComponentModel.ISupportInitialize)GreemBox1).BeginInit();
@@ -70,7 +72,7 @@
             // 
             Paddle.BackColor = Color.DarkRed;
             Paddle.BorderStyle = BorderStyle.FixedSingle;
-            Paddle.Location = new Point(295, 439);
+            Paddle.Location = new Point(300, 439);
             Paddle.Name = "Paddle";
             Paddle.Size = new Size(110, 10);
             Paddle.TabIndex = 1;
@@ -80,11 +82,12 @@
             // 
             Ball.BackColor = SystemColors.ActiveCaption;
             Ball.BorderStyle = BorderStyle.FixedSingle;
-            Ball.Location = new Point(250, 350);
+            Ball.Location = new Point(243, 260);
             Ball.Name = "Ball";
             Ball.Size = new Size(15, 15);
             Ball.TabIndex = 2;
             Ball.TabStop = false;
+            
             // 
             // GreemBox1
             // 
@@ -186,6 +189,12 @@
             RedBox1.TabIndex = 9;
             RedBox1.TabStop = false;
             // 
+            // timer
+            // 
+            timer.Enabled = true;
+            timer.Interval = 10;
+            timer.Tick += MainGameLoop;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -208,6 +217,8 @@
             ForeColor = SystemColors.ControlDarkDark;
             Name = "Form1";
             Text = "Arkanoid";
+            KeyDown += KeyIsDown;
+            KeyUp += KeyIsUp;
             ((System.ComponentModel.ISupportInitialize)Paddle).EndInit();
             ((System.ComponentModel.ISupportInitialize)Ball).EndInit();
             ((System.ComponentModel.ISupportInitialize)GreemBox1).EndInit();
@@ -238,5 +249,6 @@
         private PictureBox RedBox3;
         private PictureBox RedBox5;
         private PictureBox RedBox1;
+        private System.Windows.Forms.Timer timer;
     }
 }
