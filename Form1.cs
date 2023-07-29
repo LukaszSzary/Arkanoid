@@ -1,13 +1,16 @@
+
 namespace Arkanoid_C_
 {
     public partial class Form1 : Form
     {
-        bool paddleDirectionLeft = false, paddleDirectionRight = false;
-
-        int paddleSpeed = 10;
-        int ballSpeed = 1;
-        int ballSpeedVerticalMultiplier = 1;
-        int ballSpeedHorizontalMultiplier = 1;
+        Random random = new Random();
+        bool paddleDirectionLeft = false;
+        bool paddleDirectionRight = false;
+        bool ballOnField = true;
+        int paddleSpeed = 15;
+        double ballSpeed = 1;
+        double ballSpeedVerticalMultiplier = 6;
+        double ballSpeedHorizontalMultiplier = 6;
         // vertical true=right,false=left ; horizontal true=down,false=up
         bool ballVerticalDirection = true;
         bool ballHorizontalDirection = true;
@@ -20,6 +23,7 @@ namespace Arkanoid_C_
 
         private void MainGameLoop(object sender, EventArgs e)
         {
+            //paddle move
             if (paddleDirectionLeft == true && paddleDirectionRight == false && Paddle.Left >= 1)
             {
                 Paddle.Left -= paddleSpeed;
@@ -29,8 +33,41 @@ namespace Arkanoid_C_
                 Paddle.Left += paddleSpeed;
             }
 
-            Ball.Left += ballSpeed*ballSpeedHorizontalMultiplier;
-            Ball.Top += ballSpeed*ballSpeedVerticalMultiplier;
+            //ball move
+            if (ballHorizontalDirection)
+            {
+                Ball.Left += (int)(ballSpeed * ballSpeedHorizontalMultiplier);
+            }
+            else
+            {
+                Ball.Left -= (int)(ballSpeed * ballSpeedHorizontalMultiplier);
+            }
+
+            if (ballVerticalDirection)
+            {
+                Ball.Top += (int)(ballSpeed * ballSpeedVerticalMultiplier);
+            }
+            else
+            {
+                Ball.Top -= (int)(ballSpeed * ballSpeedVerticalMultiplier);
+            }
+            //colisions with paddle and borders
+            if (((Ball.Bounds.IntersectsWith(Paddle.Bounds)) || Ball.Bottom <= 16) && ballOnField)
+            {
+                ballOnField = false;
+                BounceTopBot();
+            }
+
+            if (((Ball.Left <= 1 || Ball.Left >= 680) && ballOnField) || (Ball.Right <= 15 && Ball.Bottom <= 15) || (Ball.Left >= 680 && Ball.Bottom <= 15))
+            {
+                ballOnField = false;
+                BounceRigLef();
+            }
+
+            if (Ball.Left > 1 && Ball.Right < 699 && Ball.Top > 2 && Ball.Bottom < 439)
+            {
+                ballOnField = true;
+            }
         }
 
 
@@ -57,7 +94,27 @@ namespace Arkanoid_C_
                 paddleDirectionRight = true;
             }
         }
+        private void BounceTopBot()
+        {
+            int RandomBallSpeedVerticalMultiplier = random.Next(4, 21);
 
+            ballVerticalDirection = !ballVerticalDirection;
+            //ballHorizontalDirection = random.Next(2) == 1;
+
+            ballSpeed = 1;// Math.Sqrt((72 - RandomBallSpeedVerticalMultiplier* RandomBallSpeedVerticalMultiplier- RandomBallSpeedVerticalMultiplier- ballSpeedHorizontalMultiplier * ballSpeedHorizontalMultiplier- ballSpeedHorizontalMultiplier)/2);
+            ballSpeedVerticalMultiplier = RandomBallSpeedVerticalMultiplier;
+            ballSpeedHorizontalMultiplier = 10;
+        }
+        private void BounceRigLef()
+        {
+            int RandomBallSpeedVerticalMultiplier = random.Next(4, 21);
+
+            ballHorizontalDirection = !ballHorizontalDirection;
+
+            ballSpeed = 1;// Math.Sqrt((72 - RandomBallSpeedVerticalMultiplier* RandomBallSpeedVerticalMultiplier- RandomBallSpeedVerticalMultiplier- ballSpeedHorizontalMultiplier * ballSpeedHorizontalMultiplier- ballSpeedHorizontalMultiplier)/2);
+            ballSpeedVerticalMultiplier = RandomBallSpeedVerticalMultiplier;
+            ballSpeedHorizontalMultiplier = 10;
+        }
         private void ResetGame()
         {
             //make objects visible
@@ -79,10 +136,10 @@ namespace Arkanoid_C_
 
             paddleDirectionLeft = false;
             paddleDirectionRight = false;
-            paddleSpeed = 10;
-            ballSpeed = 20;
-            ballSpeedVerticalMultiplier = 1;
-            ballSpeedHorizontalMultiplier = 1;
+            paddleSpeed = 15;
+            ballSpeed = 1;
+            ballSpeedVerticalMultiplier = 6;
+            ballSpeedHorizontalMultiplier = 6;
             ballVerticalDirection = true;
             ballHorizontalDirection = true;
 
@@ -91,6 +148,7 @@ namespace Arkanoid_C_
 
         }
 
-        
+
+
     }
 }

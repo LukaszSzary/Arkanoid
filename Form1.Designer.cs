@@ -70,6 +70,7 @@
             // 
             // Paddle
             // 
+            Paddle.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             Paddle.BackColor = Color.DarkRed;
             Paddle.BorderStyle = BorderStyle.FixedSingle;
             Paddle.Location = new Point(300, 439);
@@ -80,14 +81,14 @@
             // 
             // Ball
             // 
+            Ball.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             Ball.BackColor = SystemColors.ActiveCaption;
             Ball.BorderStyle = BorderStyle.FixedSingle;
-            Ball.Location = new Point(243, 260);
+            Ball.Location = new Point(251, 270);
             Ball.Name = "Ball";
             Ball.Size = new Size(15, 15);
             Ball.TabIndex = 2;
             Ball.TabStop = false;
-            
             // 
             // GreemBox1
             // 
@@ -192,7 +193,7 @@
             // timer
             // 
             timer.Enabled = true;
-            timer.Interval = 10;
+            timer.Interval = 20;
             timer.Tick += MainGameLoop;
             // 
             // Form1
