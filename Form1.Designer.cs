@@ -43,6 +43,7 @@
             RedBox5 = new PictureBox();
             RedBox1 = new PictureBox();
             timer = new System.Windows.Forms.Timer(components);
+            labelEndGame = new Label();
             ((System.ComponentModel.ISupportInitialize)Paddle).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Ball).BeginInit();
             ((System.ComponentModel.ISupportInitialize)GreemBox1).BeginInit();
@@ -196,12 +197,26 @@
             timer.Interval = 20;
             timer.Tick += MainGameLoop;
             // 
+            // labelEndGame
+            // 
+            labelEndGame.BackColor = SystemColors.ActiveCaption;
+            labelEndGame.Font = new Font("Consolas", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelEndGame.ForeColor = SystemColors.ActiveCaptionText;
+            labelEndGame.Location = new Point(113, 75);
+            labelEndGame.Name = "labelEndGame";
+            labelEndGame.Size = new Size(476, 238);
+            labelEndGame.TabIndex = 14;
+            labelEndGame.Text = "Game Over";
+            labelEndGame.TextAlign = ContentAlignment.MiddleCenter;
+            labelEndGame.Visible = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlDarkDark;
             ClientSize = new Size(684, 461);
+            Controls.Add(labelEndGame);
             Controls.Add(RedBox2);
             Controls.Add(RedBox4);
             Controls.Add(RedBox3);
@@ -251,5 +266,6 @@
         private PictureBox RedBox5;
         private PictureBox RedBox1;
         private System.Windows.Forms.Timer timer;
+        private Label labelEndGame;
     }
 }
